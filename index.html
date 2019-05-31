@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RSYNC command builder by Levi Cole</title>
+	<meta name="description" content="">
+
+	<meta property="og:title" content="RSYNC command builder by Levi Cole">
+	<meta property="og:site_name" content="">
+	<meta property="og:description" content="">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://thelevicole.com/rsync/">
+	<meta property="og:image" content="">
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="https://thelevicole.com/rsync/" />
+	<meta name="twitter:title" content="RSYNC command builder by Levi Cole">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:image" content="">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+	
+	<div class="container my-5">
+		<h1 class="mb-5">RSYNC <span class="text-primary">::</span> <small class="text-muted">Command builder</small></h1>
+		<hr>
+		<textarea readonly class="form-control"></textarea>
+		<hr>
+		<div class="row mt-5">
+			
+			<div class="col-lg-6 mb-4">
+				<div class="card card-primary">
+					<div class="card-header text-white bg-secondary">
+						Origin
+					</div>
+					<div class="card-body">
+						
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Login</span>
+							</div>
+							<input type="text" class="form-control" name="src[login]">
+						</div>
+
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Host</span>
+							</div>
+							<input type="text" class="form-control" name="src[host]">
+						</div>
+
+						<div class="input-group mb-0">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Path</span>
+							</div>
+							<input type="text" class="form-control" name="src[path]" value="~/">
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-6 mb-4">
+				<div class="card card-primary">
+					<div class="card-header text-white bg-primary">
+						Destination
+					</div>
+					<div class="card-body">
+						
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Login</span>
+							</div>
+							<input type="text" class="form-control" name="dest[login]">
+						</div>
+
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Host</span>
+							</div>
+							<input type="text" class="form-control" name="dest[host]">
+						</div>
+
+						<div class="input-group mb-0">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Path</span>
+							</div>
+							<input type="text" class="form-control" name="dest[path]" value="/">
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 mb-4">
+				<div class="card card-primary">
+					<div class="card-header">
+						Ignore paths
+						<button class="btn btn-link p-0 float-right" data-toggle="modal" data-target="#ignore-paths">Help</button>
+					</div>
+					<div class="card-body">
+
+						<div class="mb-3">
+							<label class="mb-0">Ignore files</label><br>
+							<small class="form-text mb-3">Patterns for files and directories to be excluded from the transfer.</small>
+							<textarea type="text" class="form-control" name="ignore[exclude]" placeholder="/.git/"></textarea>
+							<small class="form-text text-muted text-right">One pattern per line.</small>
+						</div>
+
+						<!-- Future feature -->
+						<div class="mb-3">
+							<label class="mb-0">Exclude from ignore</label><br>
+							<small class="form-text mb-3">Exceptions for the ignore patterns above.</small>
+							<textarea type="text" class="form-control" name="ignore[include]"></textarea>
+							<small class="form-text text-muted text-right">One pattern per line.</small>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 mb-4">
+				<div class="card card-primary">
+					<div class="card-header">
+						Settings
+					</div>
+					<div class="card-body">
+
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Port</span>
+							</div>
+							<input type="text" class="form-control" name="setting[port]" placeholder="22">
+						</div>
+
+						<div class="custom-control custom-checkbox mb-1">
+							<input type="checkbox" class="custom-control-input" name="setting[contents]" value="1" id="setting-contents" checked>
+							<label class="custom-control-label" for="setting-contents">Move just the directory contents</label>
+						</div>
+
+						<div class="custom-control custom-checkbox mb-1">
+							<input type="checkbox" class="custom-control-input" name="setting[compress]" value="1" id="setting-compress" checked>
+							<label class="custom-control-label" for="setting-compress">Compress file data during the transfer</label>
+						</div>
+
+						<div class="custom-control custom-checkbox mb-1">
+							<input type="checkbox" class="custom-control-input" name="setting[archive]" value="1" id="setting-archive" checked>
+							<label class="custom-control-label" for="setting-archive">Archive mode</label>
+						</div>
+
+						<div class="custom-control custom-checkbox mb-1">
+							<input type="checkbox" class="custom-control-input" name="setting[extraneous]" value="1" id="setting-extraneous">
+							<label class="custom-control-label" for="setting-extraneous">Delete extraneous files</label>
+						</div>
+
+						<div class="custom-control custom-checkbox mb-1">
+							<input type="checkbox" class="custom-control-input" name="setting[recursive]" value="1" id="setting-recursive">
+							<label class="custom-control-label" for="setting-recursive">Recurse into directories</label>
+						</div>
+
+						<div class="custom-control custom-checkbox mb-1">
+							<input type="checkbox" class="custom-control-input" name="setting[dirs]" value="1" id="setting-dirs">
+							<label class="custom-control-label" for="setting-dirs">Transfer directories without recursing</label>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal" tabindex="-1" role="dialog" id="ignore-paths">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ignore files</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Define patterns to exclude files. One pattern per line. For example, enter *.png in the upper part to exclude all PNG files, and enter /assets/logo.png in the lower part to make an exception for the logo file.</p>
+					<p><strong>Some examples...</strong></p>
+					<table class="table table-sm small table-bordered table-striped">
+						<tbody>
+							<tr>
+								<td class="w-25">
+									<code>config</code>
+								</td>
+								<td>
+									All files and directories named 'config' together with their contents
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<code>*.png</code>
+								</td>
+								<td>
+									All PNG files
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<code>/path/name</code>
+								</td>
+								<td>
+									File or directory together with its content in a specific path
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<code>name*</code>
+								</td>
+								<td>
+									All files starting with name and all directories starting with name together with their contents
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="app.min.js"></script>
+</body>
+</html>
