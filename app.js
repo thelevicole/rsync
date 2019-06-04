@@ -207,7 +207,11 @@
 			}
 		}
 
-		$( 'textarea[readonly]' ).val( builder( query ) );
+		const command = builder( query );
+
+		$( '#print-command' ).val( command );
+		$( '#link-command' ).attr( 'href', `https://explainshell.com/explain?cmd=${encodeURIComponent( command )}` );
+
 	} ).trigger( 'change' );
 
 } )( jQuery );
