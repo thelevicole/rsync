@@ -36,7 +36,8 @@
 				archive: '',
 				extraneous: '',
 				recursive: '',
-				dirs: ''
+				dirs: '',
+				verbose: ''
 			}
 		}, params );
 
@@ -53,6 +54,13 @@
 		 * @type {Array}
 		 */
 		const switches = [];
+
+		/**
+		 * This  option  increases  the amount of information you are given during the transfer.
+		 */
+		if ( params.setting.verbose ) {
+			switches.push( 'v' ); // --verbose
+		}
 
 		/**
 		 * Rsync compresses the file data as it is sent to the destination machine
